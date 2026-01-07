@@ -1,0 +1,11 @@
+✅ Model trained successfully!
+
+--- Model Evaluation ---
+Predicting 'Clean Alternative Fuel Vehicle' Eligibility
+
+Confusion Matrix:
+[[10799     0]
+ [    0 11728]]
+
+Accuracy: 1.0000 (Correctly classified ~100.0%)
+Precision: 1.0000
