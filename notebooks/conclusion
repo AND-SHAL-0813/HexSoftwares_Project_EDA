@@ -1,0 +1,13 @@
+## 🏁 Conclusion & Recommendations
+
+### 🔍 Key Findings:
+1. **Market Leadership:** **Tesla** remains the dominant player, followed by Nissan and Chevrolet.
+2. **Adoption Trends:** There is a massive spike in registrations starting from 2018, coinciding with better battery technology and infrastructure.
+3. **Model Performance:** Our classification model achieved an accuracy of **{acc:.2%}**, indicating that technical specs like range are excellent predictors of government incentive eligibility.
+
+### 💡 Business Recommendations:
+* **Infrastructure Expansion:** High-density areas like King County should focus on "Fast-Charging" hubs to support the high volume of BEVs.
+* **Incentive Awareness:** Since range is the key driver for CAFV eligibility, manufacturers should focus on breaking the 200-mile range barrier for entry-level models to maximize consumer tax credits.
+
+---
+**End of Project 1 - Submitted for HexSoftware Internship.**
