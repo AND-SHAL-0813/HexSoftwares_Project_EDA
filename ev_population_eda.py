@@ -200,8 +200,12 @@ class EVPopulationEDA:
             
             for col in self.categorical_cols:
                 if self.df[col].isnull().sum() > 0:
-                    self.df[col].fillna(self.df[col].mode()[0], inplace=True)
-                    print(f"✓ Filled '{col}' with mode")
+                    mode_values = self.df[col].mode()
+                    if len(mode_values) > 0:
+                        self.df[col].fillna(mode_values[0], inplace=True)
+                        print(f"✓ Filled '{col}' with mode")
+                    else:
+                        print(f"⚠ Skipped '{col}' - no valid mode found")
                     
         elif strategy == 'drop':
             self.df.dropna(inplace=True)
@@ -222,7 +226,9 @@ class EVPopulationEDA:
         elif strategy == 'fill_mode':
             for col in self.df.columns:
                 if self.df[col].isnull().sum() > 0:
-                    self.df[col].fillna(self.df[col].mode()[0], inplace=True)
+                    mode_values = self.df[col].mode()
+                    if len(mode_values) > 0:
+                        self.df[col].fillna(mode_values[0], inplace=True)
             print(f"✓ Filled all columns with mode")
             
         elif isinstance(strategy, dict):
@@ -233,7 +239,9 @@ class EVPopulationEDA:
                     elif method == 'median':
                         self.df[col].fillna(self.df[col].median(), inplace=True)
                     elif method == 'mode':
-                        self.df[col].fillna(self.df[col].mode()[0], inplace=True)
+                        mode_values = self.df[col].mode()
+                        if len(mode_values) > 0:
+                            self.df[col].fillna(mode_values[0], inplace=True)
                     elif method == 'drop':
                         self.df.dropna(subset=[col], inplace=True)
                     print(f"✓ Handled '{col}' with {method}")
@@ -350,7 +358,11 @@ class EVPopulationEDA:
         n_rows = (n_cols + 2) // 3
         
         fig, axes = plt.subplots(n_rows, 3, figsize=(15, 5*n_rows))
-        axes = axes.flatten() if n_cols > 1 else [axes]
+        # Handle axes array structure properly
+        if isinstance(axes, np.ndarray):
+            axes = axes.flatten()
+        else:
+            axes = [axes]
         
         for idx, col in enumerate(self.numeric_cols):
             if idx < len(axes):
@@ -421,7 +433,11 @@ class EVPopulationEDA:
         n_rows = (n_cols + 1) // 2
         
         fig, axes = plt.subplots(n_rows, 2, figsize=(15, 5*n_rows))
-        axes = axes.flatten() if n_cols > 1 else [axes]
+        # Handle axes array structure properly
+        if isinstance(axes, np.ndarray):
+            axes = axes.flatten()
+        else:
+            axes = [axes]
         
         for idx, col in enumerate(self.categorical_cols):
             if idx < len(axes):
@@ -466,7 +482,11 @@ class EVPopulationEDA:
         n_rows = (n_cols + 2) // 3
         
         fig, axes = plt.subplots(n_rows, 3, figsize=(15, 5*n_rows))
-        axes = axes.flatten() if n_cols > 1 else [axes]
+        # Handle axes array structure properly
+        if isinstance(axes, np.ndarray):
+            axes = axes.flatten()
+        else:
+            axes = [axes]
         
         for idx, col in enumerate(self.numeric_cols):
             if idx < len(axes):
