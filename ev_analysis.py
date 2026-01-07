@@ -1,0 +1,115 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, roc_curve, auc
+import matplotlib.pyplot as plt
+import os
+import numpy as np
+
+def main():
+    """
+    Main function to load EV data, train a classification model, evaluate it, 
+    and plot confusion matrix, accuracy, and ROC curve.
+    """
+    # --- Step 1: Load Dataset ---
+    file_path = "/content/sample_data/Electric_Vehicle_Population_Data.csv.zip"
+    
+    if not os.path.exists(file_path):
+        print(f"Error: Dataset not found at '{file_path}'")
+        print("Please ensure the 'Electric_Vehicle_Population_Data.csv' file is in the same folder.")
+        return
+        
+    df = pd.read_csv(file_path)
+
+    # --- Step 2: Feature Selection & Engineering ---
+    features = ['Model Year', 'Electric Range', 'Base MSRP']
+    X = df[features].copy()
+
+    # --- Step 3: Define Target Variable ---
+    target_col = 'Clean Alternative Fuel Vehicle (CAFV) Eligibility'
+    y = df[target_col].apply(
+        lambda x: 1 if x == 'Clean Alternative Fuel Vehicle Eligible' else 0
+    )
+
+    # --- Step 4: Handle Missing Values ---
+    for col in features:
+        X.loc[:, col] = X[col].fillna(X[col].mean())
+
+    # --- Step 5: Split Data ---
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42, stratify=y
+    )
+
+    # --- Step 6: Train Model ---
+    model = LogisticRegression(max_iter=1000)
+    model.fit(X_train, y_train)
+    print("✅ Model trained successfully!")
+
+    # --- Step 7: Predictions ---
+    y_pred = model.predict(X_test)
+    y_pred_prob = model.predict_proba(X_test)[:, 1]  # probabilities for ROC
+
+    # --- Step 8: Evaluation ---
+    cm = confusion_matrix(y_test, y_pred)
+    acc = accuracy_score(y_test, y_pred)
+    prec = precision_score(y_test, y_pred, zero_division=0)
+
+    print("\n--- Model Evaluation ---")
+    print("Predicting 'Clean Alternative Fuel Vehicle' Eligibility")
+    print("\nConfusion Matrix:")
+    print(cm)
+    print(f"\nAccuracy: {acc:.4f} (Correctly classified ~{acc:.1%})")
+    print(f"Precision: {prec:.4f}")
+
+    # --- Step 9: Plot Confusion Matrix ---
+    plt.figure(figsize=(5,5))
+    plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
+    plt.title("Confusion Matrix")
+    plt.colorbar()
+
+    classes = ["Not Eligible (0)", "Eligible (1)"]
+    tick_marks = np.arange(len(classes))
+    plt.xticks(tick_marks, classes, rotation=45)
+    plt.yticks(tick_marks, classes)
+
+    # Print numbers inside matrix
+    thresh = cm.max() / 2.
+    for i in range(cm.shape[0]):
+        for j in range(cm.shape[1]):
+            plt.text(j, i, format(cm[i, j], 'd'),
+                     ha="center", va="center",
+                     color="white" if cm[i, j] > thresh else "black")
+
+    plt.ylabel("True Label")
+    plt.xlabel("Predicted Label")
+    plt.tight_layout()
+    plt.show()
+
+    # --- Step 9.5: ADDED CODE TO PLOT ACCURACY ---
+    plt.figure(figsize=(4, 5))
+    plt.bar(['Accuracy'], [acc], color='skyblue', width=0.4)
+    plt.title('Model Accuracy')
+    plt.ylabel('Score')
+    plt.ylim(0, 1.05) # Set y-axis limit from 0 to 1.05 for better visualization
+
+    # Add the accuracy value on top of the bar
+    plt.text(0, acc, f'{acc:.4f}', ha='center', va='bottom', fontsize=12)
+    plt.show()
+    # --- END OF ADDED CODE ---
+
+    # --- Step 10: ROC Curve ---
+    fpr, tpr, thresholds = roc_curve(y_test, y_pred_prob)
+    roc_auc = auc(fpr, tpr)
+
+    plt.figure(figsize=(6,6))
+    plt.plot(fpr, tpr, color='blue', lw=2, label=f"ROC Curve (AUC = {roc_auc:.4f})")
+    plt.plot([0, 1], [0, 1], color='red', linestyle='--', label="Random Guess")
+    plt.xlabel("False Positive Rate")
+    plt.ylabel("True Positive Rate")
+    plt.title("ROC Curve - Logistic Regression")
+    plt.legend(loc="lower right")
+    plt.grid(True)
+    plt.show()
+
+if __name__ == "__main__":
+    main()
