@@ -1,0 +1,33 @@
+# 📂 Data Documentation: Electric Vehicle Population
+
+This directory contains the dataset used for the Exploratory Data Analysis and Eligibility Classification.
+
+## 🔗 Data Source
+- **Provider:** Washington State Department of Licensing (DOL)
+- **Host:** [Data.gov](https://catalog.data.gov/dataset/electric-vehicle-population-data)
+- **Last Updated:** [Insert Date, e.g., October 2025]
+
+---
+
+## 📋 Data Dictionary
+
+| Column Name | Description | Data Type |
+| :--- | :--- | :--- |
+| **VIN (1-10)** | The first 10 characters of the Vehicle Identification Number. | Alphanumeric |
+| **County** | The county where the vehicle is registered. | String |
+| **City** | The city where the vehicle is registered. | String |
+| **Model Year** | The year the vehicle was manufactured. | Integer |
+| **Make** | The manufacturer of the vehicle (e.g., TESLA, FORD). | String |
+| **Model** | The specific model name of the vehicle. | String |
+| **Electric Vehicle Type** | Indicates if the vehicle is a BEV (Battery) or PHEV (Hybrid). | String |
+| **CAFV Eligibility** | **(Target Variable)** Eligibility for Clean Alternative Fuel incentives. | String |
+| **Electric Range** | The maximum distance the vehicle can travel on a single charge. | Integer |
+| **Base MSRP** | Manufacturer's Suggested Retail Price. | Integer |
+| **Legislative District** | The district where the vehicle is registered. | Integer |
+
+---
+
+## 🛠️ Data Processing Notes
+- **Missing Values:** The `Base MSRP` and `Electric Range` columns contained zeros or nulls for older models; these were handled via mean/median imputation in the analysis script.
+- **Duplicates:** Exact duplicates (identical rows) were removed to prevent bias in registration volume analysis.
+- **Feature Engineering:** The `CAFV Eligibility` column was converted into a binary label (1 for Eligible, 0 for Not Eligible) for the Machine Learning model.
