@@ -1,0 +1,11 @@
+# ⚡ Electric Vehicle Population Analysis & Classification
+**HexSoftware Data Science Internship - Project 1**
+
+## 📝 Introduction
+This notebook explores the growth and characteristics of the Electric Vehicle (EV) population. The primary goal is to perform an **Exploratory Data Analysis (EDA)** to understand market trends and use **Machine Learning** to predict whether a vehicle is eligible for Clean Alternative Fuel Vehicle (CAFV) incentives.
+
+### 🎯 Key Objectives:
+1. **Data Cleaning:** Handle missing values and optimize data types.
+2. **Exploratory Analysis:** Visualize manufacturer dominance and geographic adoption.
+3. **Classification:** Build a Logistic Regression model to predict CAFV eligibility.
+4. **Actionable Insights:** Provide data-driven recommendations for stakeholders.
