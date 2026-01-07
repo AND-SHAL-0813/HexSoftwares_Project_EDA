@@ -30,3 +30,15 @@ This project provides a data-driven deep dive into the **Electric Vehicle (EV) l
 1. **Clone the repository:**
    ```bash
    git clone [https://github.com/AND-SHAL-0813/HexSoftware_EV_Project.git](https://github.com/AND-SHAL-0813/HexSoftware_EV_Project.git)
+
+---
+
+## 👥 Author & Recognition
+
+**SHALINI ANAND** *Data Science Intern* **HexSoftware** | Project 1 Submission  
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://linkedin.com/in/shalini-anand0813)  
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=flat&logo=github)](https://github.com/AND-SHAL-0813)  
+
+---
+*This project was completed as part of the HexSoftware Data Science Virtual Internship program.*
