@@ -1,0 +1,8 @@
+## 📖 Data Dictionary
+Understanding the features before analysis:
+* **VIN (1-10):** Partial Vehicle Identification Number.
+* **Make/Model:** The manufacturer and specific vehicle name.
+* **Electric Vehicle Type:** Battery Electric Vehicle (BEV) or Plug-in Hybrid (PHEV).
+* **CAFV Eligibility:** Whether the vehicle qualifies for clean fuel incentives (Our Target Variable).
+* **Electric Range:** Maximum distance on a single charge.
+* **Base MSRP:** The manufacturer's suggested retail price.
