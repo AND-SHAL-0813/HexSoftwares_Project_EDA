@@ -1,0 +1,3 @@
+## 🤖 Section 2: Predictive Modeling (Classification)
+We will now build a **Logistic Regression** model.
+**Goal:** Predict if a vehicle is `Clean Alternative Fuel Vehicle Eligible` based on its `Model Year`, `Electric Range`, and `Base MSRP`.
